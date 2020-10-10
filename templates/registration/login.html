@@ -1,0 +1,13 @@
+{% extends 'instalike/base/base.html' %}
+
+{% block content %}
+<p>Вход в аккаунт</p>
+<form method="post">
+{% csrf_token %}
+<input type="hidden" name="next" value="{{ next }}">
+
+ {{ form.as_p }}
+
+<button type="submit">Вход</button>
+</form>
+{% endblock content %}
