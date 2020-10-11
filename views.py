@@ -4,9 +4,16 @@ from .models import InstaLikeBot
 from .forms import BotForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
 
 def main_page(request):
     return render(request, template_name='instalike/base/base.html')
+
+
+class RegistrationView(CreateView):
+    form_class = UserCreationForm
+
+
 
 
 class BotsIndex(ListView, LoginRequiredMixin):
