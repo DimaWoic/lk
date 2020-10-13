@@ -5,7 +5,7 @@
 {% if user.is_authenticated %}
 <p>Привет {{ user }} <a href="{% url 'logout' %}">Выйти из аккаунта</a></p>
 {% else %}
-<p><a href="{% url 'login'%}">Вход в аккаунт</a></p>
+<p><a href="{% url 'login'%}">Вход в аккаунт</a>  <a href="{% url 'registration'%}">Создать аккаунт</a></p>
 {% endif %}
 <p><h1>Автоматическое продвижения инстаграмм аккаунтов</h1></p>
 {% block content %}

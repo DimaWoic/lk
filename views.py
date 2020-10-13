@@ -1,19 +1,20 @@
 from django.shortcuts import render, render_to_response
-from django.views.generic import ListView, UpdateView, DeleteView, CreateView
+from django.views.generic import ListView, UpdateView, DeleteView, CreateView, FormView
 from .models import InstaLikeBot
 from .forms import BotForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
+from . import forms
 
 def main_page(request):
     return render(request, template_name='instalike/base/base.html')
 
 
 class RegistrationView(CreateView):
-    form_class = UserCreationForm
-
-
+    form_class = forms.RegForm
+    template_name = 'instalike/registration.html'
+    success_url = reverse_lazy('main')
 
 
 class BotsIndex(ListView, LoginRequiredMixin):

@@ -1,0 +1,22 @@
+{% extends 'instalike/base/base.html' %}
+ 
+{% block content %}
+<h2>Регистрация</h2>
+<form method="post">
+  {% csrf_token %}
+  <p>{{ form.username.label }} {{ form.username }}</p>
+  <p>{{ form.first_name.label }} {{ form.first_name }}</p>
+  <p>{{ form.last_name.label }} {{ form.last_name }}</p>
+  <p>{{ form.email.label }} {{ form.email }}</p>
+  <p>{{ form.password1.label }} {{ form.password1 }}</p>
+  <p>{{ form.password2.label }} {{ form.password2 }}</p>
+  {% if form.subject.errors %}
+    <ol>
+    {% for error in form.subject.errors %}
+        <li><strong>{{ error|escape }}</strong></li>
+    {% endfor %}
+    </ol>
+{% endif %}
+  <button type="submit">Зарегистрироваться</button>
+</form>
+{% endblock content %}
