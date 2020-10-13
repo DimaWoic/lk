@@ -4,6 +4,7 @@ from .models import InstaLikeBot
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
+from django.contrib.auth.views import LoginView, LogoutView
 
 def main_page(request):
     return render(request, template_name='instalike/base/base.html')
@@ -13,6 +14,18 @@ class RegistrationView(CreateView):
     form_class = forms.RegForm
     template_name = 'instalike/registration.html'
     success_url = reverse_lazy('reg_done')
+
+
+class UserLoginView(LoginView):
+    template_name = 'instalike/login.html'
+
+
+class UserLogoutView(LogoutView, LoginRequiredMixin):
+    next_page = 'logout_done'
+
+
+class LogOutDone(TemplateView):
+    template_name = 'instalike/logout.html'
 
 
 class RegisterDoneView(TemplateView):
