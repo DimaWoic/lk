@@ -63,3 +63,11 @@ class RegForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+
+
+class ChangeUserInfo(forms.ModelForm):
+    email = forms.EmailField(required=True, label='Адрес электронной почтны')
+
+    class Meta:
+        model = User
+        fields = ['email', 'first_name', 'last_name']

@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Список ботов</title>
-</head>
-<body>
+{% extends 'instalike/base/base.html' %}
+{% block content %}
+
+{% include 'instalike/lk_l_menu.html' %}
+
 <p><h2>Боты Instagram</h2></p>
 {% if bots %}
 {% for b in bots %}
@@ -18,5 +16,4 @@
 
 <p><a href="{% url 'add_bot' %}" role="button">Добавить бота</a></p>
 
-</body>
-</html>
+{% endblock %}

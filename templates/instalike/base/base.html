@@ -3,7 +3,7 @@
 </title>
 <body>
 {% if user.is_authenticated %}
-<p>Привет {{ user }} <a href="{% url 'logout' %}">Выйти из аккаунта</a></p>
+<p>Привет {{ user.first_name }} <a href="{% url 'logout' %}">Выйти из аккаунта</a> <a href="{% url 'bots' %}">Личный кабинет</a></p>
 {% else %}
 <p><a href="{% url 'login'%}">Вход в аккаунт</a>  <a href="{% url 'registration'%}">Создать аккаунт</a></p>
 {% endif %}

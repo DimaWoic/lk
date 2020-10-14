@@ -1,9 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 
 class InstaLikeBot(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
     is_active = models.BooleanField(verbose_name='Бот активен', default=False)
     name = models.CharField(verbose_name='Имя бота', max_length=255, unique=True)
     login = models.CharField(verbose_name='логин', max_length=255)

@@ -5,6 +5,10 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
+
 
 def main_page(request):
     return render(request, template_name='instalike/base/base.html')
@@ -71,3 +75,28 @@ class DelBot(DeleteView, LoginRequiredMixin):
     model = InstaLikeBot
     success_url = reverse_lazy('bots')
     context_object_name = 'bot'
+
+
+class LKView(TemplateView):
+    template_name = 'instalike/lk.html'
+
+
+class SettingsView(TemplateView):
+    template_name = 'instalike/settings.html'
+
+
+class ChangeUserInfoView(LoginRequiredMixin, UpdateView, SuccessMessageMixin):
+    model = User
+    form_class = forms.ChangeUserInfo
+    success_message = 'Личные данные изменены'
+    success_url = reverse_lazy('lk')
+    template_name = 'instalike/change_info.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.user_id = request.pk
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        if not queryset:
+            queryset = self.get_queryset()
+        return get_object_or_404(queryset, pk = self.user_id)
