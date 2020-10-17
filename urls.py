@@ -14,6 +14,6 @@ urlpatterns = [
     path('registration/', views.RegistrationView.as_view(), name='registration'),
     path('registrations_done/', views.RegisterDoneView.as_view(), name='reg_done'),
     #path('lk/', views.LKView.as_view(), name='lk'),
-    path('change_info/', views.ChangeUserInfoView.as_view(), name='change_info'),
+    path('change_info/<int:pk>', views.ChangeUserInfoView.as_view(), name='change_info'),
     path('settings/', views.SettingsView.as_view(), name='settings'),
 ]
