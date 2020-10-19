@@ -1,6 +1,10 @@
 {% extends 'instalike/base/base.html' %}
 
+
+
 {% block content %}
+
+{% include 'instalike/user_info.html' %}
 
 <form method="post">
     {% csrf_token %}
