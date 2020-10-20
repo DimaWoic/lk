@@ -5,6 +5,6 @@
 {% include 'instalike/lk_l_menu.html' %}
 
 <a href="{% url 'change_info' user.pk %}">Изменение личных данных</a>
-<a href="#">Изменение пароля</a>
+<a href="{% url 'change_pass' %}">Изменение пароля</a>
 
 {% endblock %}

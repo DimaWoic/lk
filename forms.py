@@ -35,19 +35,13 @@ class RegForm(forms.ModelForm):
 
     def clean_username(self):
         username = self.cleaned_data['username']
-        list_users = []
-        for u in User.objects.all():
-            list_users.append(u.username)
-        if username in list_users:
+        if User.objects.filter(username=username).exists():
             raise ValidationError('Пользователь с таким логином уже существует', code='invalid')
         return username
 
     def clean_email(self):
         email = self.cleaned_data['email']
-        mails = []
-        for e in User.objects.all():
-            mails.append(e.email)
-        if email in mails:
+        if User.objects.filter(email=email).exusts():
             raise ValidationError('Пользователь с такой электронной почтой уже существует', code='invalid')
         return email
 
@@ -71,3 +65,9 @@ class ChangeUserInfo(forms.ModelForm):
     class Meta:
         model = User
         fields = ['email', 'first_name', 'last_name']
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exusts():
+            raise ValidationError('Пользователь с такой электронной почтой уже существует', code='invalid')
+        return email

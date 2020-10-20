@@ -4,10 +4,9 @@ from .models import InstaLikeBot
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
 
 
 def main_page(request):
@@ -102,3 +101,10 @@ class ChangeUserInfoView(LoginRequiredMixin, UpdateView, SuccessMessageMixin):
     template_name = 'instalike/change_info.html'
 
 
+class ChangePasswordView(PasswordChangeView):
+    template_name = 'instalike/change_password.html'
+    success_url = reverse_lazy('pass_change_done')
+
+
+class ChangePasswordDoneView(PasswordChangeDoneView):
+    template_name = 'instalike/password_change_done.html'
