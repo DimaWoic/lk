@@ -22,7 +22,9 @@ class InstaLikeBot():
         browser_options.add_argument(
             '--user-agent=Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/602.1.50 '
             '(KHTML, like Gecko) CriOS/56.0.2924.75 Mobile/14E5239e Safari/602.1')
+
         self.driver = webdriver.Firefox(options=browser_options, executable_path=path + '/geckodriver')
+        self.driver.mobile
         self.wait = WebDriverWait(self.driver, 10)
         self.driver.get(url='https://www.instagram.com/')
 
@@ -42,12 +44,18 @@ class InstaLikeBot():
                                      '/div[2]/div[1]/div/form/div/div[1]/div/label/input')
         time.sleep(5)
 
-        username.send_keys(self.login)
+        for l in self.login:
+            username.send_keys(l)
+            time.sleep(0.5)
+
         password = self.driver.find_element_by_xpath('/html/body/div[1]/section/main/article'
                                                 '/div[2]/div[1]/div/form/div/div[2]/div/label/input')
         time.sleep(5)
 
-        password.send_keys(self.password)
+        for p in self.password:
+            password.send_keys(p)
+            time.sleep(0.5)
+
         log_in = self.driver.find_element_by_xpath('/html/body/div[1]/section/main/article'
                                               '/div[2]/div[1]/div/form/div/div[3]/button')
         log_in.click()
@@ -66,8 +74,8 @@ class InstaLikeBot():
         profile.click()
 
         search = self.driver.find_element_by_xpath('/html/body/div[1]/section/nav/div[2]/div/div/div[2]/input')
-        search.send_keys('море')
-        search.send_keys(Keys.ENTER)
+        ActionChains(self.driver).move_to_element(search).double_click().perform()
+        ActionChains(self.driver).send_keys('море').perform()
 
 
 bot = InstaLikeBot(login='rumagpie', password='456988wdv')
