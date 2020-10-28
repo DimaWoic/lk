@@ -41,7 +41,7 @@ class RegForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data['email']
-        if User.objects.filter(email=email).exusts():
+        if User.objects.filter(email=email).exists():
             raise ValidationError('Пользователь с такой электронной почтой уже существует', code='invalid')
         return email
 

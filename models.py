@@ -1,4 +1,8 @@
 from django.db import models
+import os
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth.models import User
 
 
 class InstaLikeBot(models.Model):
@@ -22,3 +26,30 @@ class InstaLikeBot(models.Model):
     def __str__(self):
         return self.name
 
+
+@receiver(post_save, sender=User)
+def create_user(sender, **kwargs):
+    path = os.getcwd()
+    if kwargs['created']:
+        print(kwargs)
+        try:
+            os.mkdir(path=path + '/instalike/bots/' + kwargs['instance'].username)
+        except:
+            pass
+
+
+@receiver(post_save)
+def create_bot(sender, request, **kwargs):
+    path = os.getcwd()
+    if kwargs['created']:
+        print(kwargs)
+        try:
+            with open(path + '/instalike/bots/instalike.txt', 'r') as file_bot:
+                original_bot = file_bot.read()
+            path_to_bot = path + '/instalike/bots/' + kwargs['instance'].username
+            with open(path_to_bot + '/' + kwargs['instance'].username + '.py', 'w') as bot_py:
+                bot_name = kwargs['instance'].username
+                with_bot_name = original_bot.replace('{bot_name}', bot_name).replace('{pk}', str(kwargs['instance'].pk))
+                bot_py.write(with_bot_name)
+        except Exception as e:
+            print(e)
