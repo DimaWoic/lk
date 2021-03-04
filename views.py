@@ -1,6 +1,5 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView, TemplateView
-from .models import InstaLikeBot
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
@@ -28,7 +27,7 @@ class UserLoginView(LoginView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['next'] = reverse_lazy('bots')
+        context['next'] = reverse_lazy('main')
         return context
 
 class UserLogoutView(LogoutView, LoginRequiredMixin):
@@ -41,48 +40,6 @@ class LogOutDone(TemplateView):
 
 class RegisterDoneView(TemplateView):
     template_name = 'instalike/register_done.html'
-
-
-
-class BotsIndex(ListView, LoginRequiredMixin):
-    login_url = 'login'
-    redirect_field_name = 'main'
-    template_name = 'instalike/bots_index.html'
-    template_name_suffix = '_index'
-    context_object_name = 'bots'
-    queryset = InstaLikeBot.objects.all()
-
-
-class BotCreate(CreateView, LoginRequiredMixin):
-    login_url = 'login'
-    redirect_field_name = 'main'
-    model = InstaLikeBot
-    template_name_suffix = '_add'
-    success_url = reverse_lazy('bots')
-    fields = '__all__'
-
-    def form_invalid(self, form):
-        return render_to_response('instalike/error.html')
-
-
-class BotUpdate(UpdateView, LoginRequiredMixin):
-    login_url = 'login'
-    redirect_field_name = 'main'
-    model = InstaLikeBot
-    template_name_suffix = '_update'
-    success_url = reverse_lazy('bots')
-    fields = '__all__'
-
-    def get_queryset(self):
-        return InstaLikeBot.objects.all()
-
-
-class DelBot(DeleteView, LoginRequiredMixin):
-    login_url = 'login'
-    redirect_field_name = 'main'
-    model = InstaLikeBot
-    success_url = reverse_lazy('bots')
-    context_object_name = 'bot'
 
 
 class LKView(TemplateView):

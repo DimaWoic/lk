@@ -1,14 +1,8 @@
 from django import forms
-from .models import InstaLikeBot
+#from .models import InstaLikeBot
 from django.contrib.auth.models import User
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
-
-
-class BotForm(forms.ModelForm):
-    class Meta:
-        model = InstaLikeBot
-        fields = '__all__'
 
 
 class RegForm(forms.ModelForm):
